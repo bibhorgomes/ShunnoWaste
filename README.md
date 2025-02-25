@@ -21,10 +21,29 @@ The lack of structured and technology-driven recycling systems in Dhaka results 
 ## Proposed Solution
 
 #### Technology Stack
-- **Backend:** Flask (Python)
-- **Frontend:** HTML, CSS, JavaScript
-- **Database:** MySQL
-- **Hosting:** cPanel (Personal Domain)
+<table border="1" cellspacing="0" cellpadding="5">
+  <tr>
+    <th>Component</th>
+    <th>Technology</th>
+  </tr>
+  <tr>
+    <td>Backend</td>
+    <td>Flask (Python)</td>
+  </tr>
+  <tr>
+    <td>Frontend</td>
+    <td>HTML, CSS, JavaScript</td>
+  </tr>
+  <tr>
+    <td>Database</td>
+    <td>MySQL</td>
+  </tr>
+  <tr>
+    <td>Hosting</td>
+    <td>cPanel (Personal Domain)</td>
+  </tr>
+</table>
+
 
 #### Core Features
 
