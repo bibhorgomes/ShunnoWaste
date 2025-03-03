@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Find Your Nearest Bin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/find_bin_style.css' ) }}">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/" class="back_home">Home</a>
+        <div class="loc_container">
+            <div class="locations">
+                <button class="location-btn" onclick="showDetails(this)" data-name="Mohammadpur"
+                    data-address="123, Mohammadpur Residential Area, Dhaka-1207."
+                    data-materials="Plastic Bottles, Glass, Aluminum Cans."
+                    data-map="https://maps.google.com/?q=Mohammadpur"
+                    data-image="{{ url_for('static', filename='assets/Mohammadpur.jpg') }}">
+                    Mohammadpur
+                </button>
+                <button class="location-btn" onclick="showDetails(this)" data-name="Dhanmondi"
+                    data-address="New 39, old 311, new road-16, Old road-27, Dhanmondi Residential Area, Dhaka-1209."
+                    data-materials="Plastic Bottles, Glass, Aluminum Cans."
+                    data-map="https://maps.google.com/?q=Dhanmondi"
+                    data-image="{{ url_for('static', filename='assets/Dhanmondi.jpg') }}">
+                    Dhanmondi
+                </button>
+                <button class="location-btn" onclick="showDetails(this)" data-name="Mirpur - 10"
+                    data-address="Block C, Section 10, Mirpur, Dhaka-1216." data-materials="E-waste, Cardboard, Paper."
+                    data-map="https://maps.google.com/?q=Mirpur-10"
+                    data-image="{{ url_for('static', filename='assets/Mirpur10.jpg') }}">
+                    Mirpur - 10
+                </button>
+                <button class="location-btn" onclick="showDetails(this)" data-name="Uttara"
+                    data-address="House No, 12 Road No, 12, Thana, Uttara, Sector, 10 District, Dhaka."
+                    data-materials="E-waste, Cardboard, Paper." data-map="https://maps.google.com/?q=Uttara"
+                    data-image="{{ url_for('static', filename='assets/Uttara.jpg') }}">
+                    Uttara
+                </button>
+                <button class="location-btn" onclick="showDetails(this)" data-name="Farmgate"
+                    data-address="27/A, Monipuripara, Farmgate, Dhaka, Bangladesh."
+                    data-materials="E-waste, Cardboard, Paper." data-map="https://maps.google.com/?q=Farmgate"
+                    data-image="{{ url_for('static', filename='assets/Farmgate.jpg') }}">
+                    Farmgate
+                </button>
+                <button class="location-btn" onclick="showDetails(this)" data-name="Hazaribagh"
+                    data-address="House/Holding: 193, Mir Hazirbagh, Mir Hazirbagh new road, Post: Gandaria-1204, Thana: Jatrabari, Dis: Dhaka."
+                    data-materials="E-waste, Cardboard, Paper." data-map="https://maps.google.com/?q=Hazaribagh"
+                    data-image="{{ url_for('static', filename='assets/Hazaribagh.jpg') }}">
+                    Hazaribagh
+                </button>
+            </div>
+            <div id="details" class="details">
+                <div class="details_text">
+                    <h2 id="location-name">SunnoWaste</h2>
+                    <p id="location-address">This recycling system will be a web-based application designed to encourage
+                        individuals and communities to participate in recycling efforts. The system will provide a
+                        platform where users can report their collections of recyclable items, such as plastic bottles,
+                        aluminum cans, and glass bottles/jars, locate nearby recycling bins, track their recycling
+                        history, and earn rewards based on their contributions. </p>
+                    <p id="accepted-materials"></p>
+                    <a id="google-maps-link" href="#" target="_blank">
+                        Google Maps <i class='bx bx-link-external'></i></a>
+                </div>
+                <div class="details_img" id="details-img">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="{{ url_for('static', filename='js/find_bin_script.js') }}"></script>
+</body>
+
+</html>

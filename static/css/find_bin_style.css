@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #F2ECE4;
+    background-image: radial-gradient(#14161940 0.9px, #FFF4E4 0.7px);
+    background-size: 20px 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 93vh;
+    padding: 1.5%;
+}
+
+a {
+    text-decoration: solid;
+}
+
+.back_home {
+    width: fit-content;
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-left: 12px;
+    cursor: pointer;
+    color: whitesmoke;
+    padding: 6px 16px;
+    border-radius: 8px;
+    background-color: #87785F;
+    border: 2px solid #FFF4E4;
+    box-shadow: 4px 4px #00000090;
+    transition: 0.3s ease-in-out;
+}
+
+.back_home:hover {
+    box-shadow: 2px 2px #00000090;
+}
+
+.loc_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 12px;
+    padding: 1%;
+    animation: pop 0.4s cubic-bezier(0, 0, 0.21, 1);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+
+    70% {
+        transform: scale(1.01);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.locations {
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    height: 5vh;
+    margin-bottom: 5vh;
+    flex: 0 0 50%;
+}
+
+.location-btn {
+    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    color: whitesmoke;
+    background: #8d99ae;
+    /* background: #93a8ac; */
+    border: 2px solid #FFF4E4;
+    box-shadow: 5px 5px #00000090;
+    transition: 0.3s ease-in-out;
+}
+
+.location-btn:hover {
+    scale: 1.02;
+    box-shadow: 4px 4px #000000aa;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 7px;
+    height: 50%;
+    backdrop-filter: blur(2px);
+    color: whitesmoke;
+    transition: 0.4s ease-in-out;
+    background-color: #7D6D61;
+    box-shadow: 5px 5px 5px 1px #000000bb;
+}
+
+.details_text {
+    width: 55%;
+    padding: 0 10px;
+}
+
+.details_img {
+    width: 43%;
+    border-radius: 5px;
+    background: url(../assets/au2.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+#google-maps-link {
+    color: #141619ee;
+    font-weight: bolder;
+}
+
+#google-maps-link:hover {
+    text-decoration: underline;
+}
