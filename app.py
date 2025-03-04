@@ -1,4 +1,4 @@
-gitfrom flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def login_general():
 
 @app.route("/user_login")
 def login_user():
-    return render_template("user_signup.html")
+    return render_template("user_login.html")
 
 
 @app.route("/user_signup")
