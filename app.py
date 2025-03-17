@@ -3,6 +3,7 @@ import mysql.connector
 from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = "Team QUAD"
 
 
 def get_db_connection():
@@ -132,7 +133,7 @@ def company_signup():
         company_location = request.form["company_location"]
         email = request.form["email"]
         password = request.form["password"]
-        
+
         try:
             conn = get_db_connection()
             cursor = conn.cursor()
