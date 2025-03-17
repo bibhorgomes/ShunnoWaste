@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #F2ECE4;
+    background-image: radial-gradient(#14161940 0.9px, #F8F0FB 0.7px);
+    background-size: 20px 20px;
+    color: #141619;
+}
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.back_home_div {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    height: fit-content;
+    margin: 15px 0;
+}
+
+.nav-link {
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+    color: #F2ECE4;
+    cursor: pointer;
+    padding: 6px 16px;
+    border-radius: 7px;
+    background-color: #87785F;
+    border: 2px solid #C5D6BC;
+    box-shadow: 3px 3px #00000090;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    box-shadow: 2px 2px #00000090;
+}
+
+#home {
+    border-color: #F2ECE4;
+}
+
+.wrapper {
+    width: 90%;
+    margin: 20px 0;
+    height: fit-content;
+    background: transparent;
+    background-color: #36454F;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    animation: pop 0.5s cubic-bezier(0, 0, 0.21, 1);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.3);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.profile_card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    margin-bottom: 20px;
+    height: 18vw;
+}
+.user-info {
+    background: #C5D6BC;
+    display: flex;
+    height: 100%;
+    border-radius: 5px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: #141619;
+    padding: 2%;
+}
+
+.info {
+    font-size: 1.05rem;
+    line-height: 170%;
+    color: #141619;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-info h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+.profile_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+
+#edit-profile-btn {
+    margin-bottom: 10px;
+}
