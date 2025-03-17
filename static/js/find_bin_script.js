@@ -12,6 +12,6 @@ function showDetails(button) {
     document.getElementById('accepted-materials').innerHTML = `<b>Accepted Materials:</b> ${materials}`;
     document.getElementById('google-maps-link').href = mapLink;
     const detailsImgDiv = document.getElementById('details-img');
-    detailsImgDiv.style.backgroundImage = `url(${imageUrl})`;
+    detailsImgDiv.style.backgroundImage = "url('{{ url_for('static', filename='assets/au2.jpg') }}')";
 }
 
