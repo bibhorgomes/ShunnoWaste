@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="/app/static/css/user_dashboard_style.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard_style.css' ) }}">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="back_home_div">
+            <div><a href="/" class="nav-link" id="home">Home</a></div>
+        </div>
+        <div class="wrapper">
+            <div class="profile_card">
+                <div class="user-info">
+                    <div class="info">
+                        <h1>Hi, {{ name }}!</h1>
+                        <p>Email: {{ email }}</p>
+                        <p>Location: <span id="user-location">{{ location }}</span></p>
+                        <p>Account Created: {{ date }}</p>
+                    </div>
+                    <div class="profile_buttons">
+                        <button id="edit-profile-btn" class="nav-link">Edit Profile</button>
+                        <a href="/logout" class="nav-link">Logout</a>
+                    </div>
+                    <script src="{{ url_for('static', filename='js/user_dashboard_script.js') }}"></script>
+                </div>          
+</body>
+
+</html>
