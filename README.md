@@ -91,10 +91,14 @@ The final product will be a fully functional hosted web application that will en
 
 ## Tools & Resources Needed
 - **Visual Studio Code:** Code development.
+- **XAMPP:** For setting up MySQL database.
 - **Git & GitHub:** Version control.
 - **Draw.io:** Creating UML diagrams.
 - **MySQL Workbench:** Designing database diagrams.
 - **cPanel:** Hosting the application and database.
+ 
 
+
+---
 
 

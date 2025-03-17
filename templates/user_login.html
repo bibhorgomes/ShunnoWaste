@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>User Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_login_style.css') }}">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+</head>
+
+<body>
+    <div class="container">
+
+        <a href="/" class="back_home">Home</a>
+
+        <div class="wrapper">
+            <form method="POST" action="/user_login">
+                <h1>User Login</h1>
+
+                <div class="input-box">
+                    <input type="text" name="email" placeholder="Email" required>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+
+                <button type="submit" class="btn">Login</button>
+
+                <div class="link">
+                    <p>Have not account? <a href="/user_signup">Sign up</a></p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
