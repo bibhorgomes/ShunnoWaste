@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Company Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/company_dashboard_style.css') }}">
+
+  <!--link rel="stylesheet" href="static/css/company_dashboard_style.css"-->
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="back_home_div">
+      <div><a href="/" class="back_home">Home</a></div>
+      <div><a href="/logout" class="logout-link">Logout</a></div>
+    </div>
+
+    <div class="wrapper">
+
+      <!-- Company Profile Section -->
+      <section class="company-profile">
+        <div class="profile-picture">
+          <img src="static/assets/company.png" alt="Profile Picture">
+          <div class="profile-details">
+            <h2>{{ session['company_name'] }}</h2> <!-- Company Name -->
+            <p>{{ session['company_address'] }}</p> <!-- Company Address from the user -->
+            <p>Eco Solutions is dedicated to sustainable waste management and recycling solutions.</p>
+            <button class="edit-button">Edit Profile</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script src="static/js/company_dashboard_script.js"></script>
+</body>
+
+</html>

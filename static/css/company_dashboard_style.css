@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  color: whitesmoke;
+  padding: 0 20px;
+  background-image: radial-gradient(#14161940 0.9px, #F8F7FF 0.7px);
+  background-size: 20px 20px;
+}
+
+a {
+  text-decoration: none;
+  color: whitesmoke;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.back_home_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: transparent;
+}
+
+.back_home,
+.logout-link {
+  font-size: 16px;
+  cursor: pointer;
+  color: whitesmoke;
+  text-align: center;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background-color: #87785F;
+  border: 2px solid #F8F7FF;
+  box-shadow: 4px 4px #00000090;
+  transition: 0.3s ease-in-out;
+}
+
+.back_home:hover,
+.logout-link:hover {
+  box-shadow: 2px 2px #00000090;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: pop 0.4s cubic-bezier(0, 0, 0.21, 1);
+}
+
+@keyframes pop {
+  0% {
+    transform: translateY(-300px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.company-profile {
+  width: 80%;
+  color: #fff;
+  padding: 30px;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  background: #3587A4;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(15px);
+}
+
+.profile-picture {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.profile-details {
+  margin-left: 20px;
+  text-align: right;
+}
+
+.profile-picture img {
+  width: 300px;
+  height: 210px;
+  border-radius: 10px;
+}
+
+h2 {
+  color: whitesmoke;
+  font-size: 1.7rem;
+}
+
+.company-profile p {
+  font-size: 1.2rem;
+  color: #ddd; /* Light grey color for the address */
+  margin-top: 10px; /* Add space between company name and address */
+}
+
+.company-profile .edit-button {
+  color: white;
+  cursor: pointer;
+  margin-top: 15px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background-color: #87785F;
+  border: 2px solid #3587A4;
+  box-shadow: 4px 4px #00000090;
+  transition: 0.3s ease-in-out;
+}
+
+.company-profile .edit-button:hover {
+  box-shadow: 2px 2px #00000090;
+}
