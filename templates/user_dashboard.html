@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="/app/static/css/user_dashboard_style.css"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard_style.css' ) }}">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
@@ -15,11 +15,12 @@
         <div class="back_home_div">
             <div><a href="/" class="nav-link" id="home">Home</a></div>
         </div>
+
         <div class="wrapper">
             <div class="profile_card">
                 <div class="user-info">
                     <div class="info">
-                        <h1>Hi, {{ name }}!</h1>
+                        <h1>Hi, {{ username }}!</h1>
                         <p>Email: {{ email }}</p>
                         <p>Location: <span id="user-location">{{ location }}</span></p>
                         <p>Account Created: {{ date }}</p>
@@ -28,8 +29,132 @@
                         <button id="edit-profile-btn" class="nav-link">Edit Profile</button>
                         <a href="/logout" class="nav-link">Logout</a>
                     </div>
-                    <script src="{{ url_for('static', filename='js/user_dashboard_script.js') }}"></script>
-                </div>          
+                </div>
+                <div class="user-summary">
+                    <table>
+                        <tr>
+                            <th>Material</th>
+                            <th>Total Recycled</th>
+                        </tr>
+                        <tr>
+                            <td>Plastic Bottles</td>
+                            <td>{{ total_plastic }}</td>
+                        </tr>
+                        <tr>
+                            <td>Cardboards</td>
+                            <td>{{ total_cardboards }}</td>
+                        </tr>
+                        <tr>
+                            <td>Glasses</td>
+                            <td>{{ total_glasses }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <h2>Submission History</h2>
+            <div class="transactions-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Plastic Bottles</th>
+                            <th>Cardboards</th>
+                            <th>Glass</th>
+                            <th>Branch</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if submissions %}
+                        {% for submission in submissions %}
+                        <tr>
+                            <td>{{ submission.user_history_date }}</td>
+                            <td>{{ submission.plastic_bottles }}</td>
+                            <td>{{ submission.cardboards }}</td>
+                            <td>{{ submission.glasses }}</td>
+                            <td>{{ submission.user_history_branch }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="5">No submissions found.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bottom_section">
+                <div class="new-order">
+                    <h2>Add New Submission</h2>
+                    <form action="/user_submit" method="POST">
+                        <div class="input-box">
+                            <label for="branch">Branch</label>
+                            <select id="branch" name="branch" required>
+                                <option value="" disabled selected>Select Branch</option>
+                                <option value="Mohammadpur">Mohammadpur</option>
+                                <option value="Dhanmondi">Dhanmondi</option>
+                                <option value="Mirpur - 10">Mirpur - 10</option>
+                                <option value="Uttara">Uttara</option>
+                                <option value="Farmgate">Farmgate</option>
+                                <option value="Hazaribagh">Hazaribagh</option>
+                            </select>
+                        </div>
+
+                        <div class="items-section">
+                            <div class="item-group">
+                                <p>Plastic Bottles</p>
+                                <label for="plastic-quantity">Quantity:
+                                    <input type="number" id="plastic-quantity" name="plastic-quantity" placeholder="0"
+                                        min="1" required>
+                                </label>
+                            </div>
+
+                            <div class="item-group">
+                                <p>Cardboard</p>
+                                <label for="cardboard-quantity">Quantity:
+                                    <input type="number" id="cardboard-quantity" name="cardboard-quantity"
+                                        placeholder="0" min="1" required>
+                                </label>
+                            </div>
+
+                            <div class="item-group">
+                                <p>Glass</p>
+                                <label for="glass-quantity">Quantity:
+                                    <input type="number" id="glass-quantity" name="glass-quantity" placeholder="0"
+                                        min="1" required>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Order</button>
+                    </form>
+                </div>
+
+
+                <div class="extra_board">
+                    <div class="withdraw">
+                        <h2>Withdraw Points</h2>
+                        <p>Available Points: <span id="available-points">{{ points }}</span></p>
+                        <form id="withdraw-form" onsubmit="return handleWithdraw(event)">
+                            <div class="input-box">
+                                <label for="amount">Amount</label>
+                                <input type="number" id="amount" name="amount" title="Enter the amount of points"
+                                    placeholder="0" min="1" required>
+                            </div>
+                            <button type="submit" class="submit-btn">Withdraw</button>
+                        </form>
+                    </div>
+
+                    <div class="offer">
+                        <h2>Notice & Offers</h2>
+                        <p>Get 10% discount on your next order if you order within 7 days of your last order.</p>
+                        <button class="submit-btn" id="reward">Claim Reward</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
