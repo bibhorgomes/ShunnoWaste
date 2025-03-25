@@ -1,4 +1,3 @@
-from datetime import datetime
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for
 import mysql.connector
 from functools import wraps
@@ -109,144 +108,22 @@ def user_signup():
 
     return render_template("user_signup.html")
 
-@app.route("/user_submit", methods=["POST", "GET"])
-@login_required
-def user_submit():
-    if request.method == "POST":
-        branch = request.form["branch"]
-        plastic_quantity = request.form.get("plastic-quantity", 0, type=int)
-        cardboard_quantity = request.form.get("cardboard-quantity", 0, type=int)
-        glass_quantity = request.form.get("glass-quantity", 0, type=int)
 
-        user_id = session.get("id")
-        if not user_id:
-            print("Please log in to submit an order.")
-            return redirect(url_for("user_login"))
-
-        try:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-
-            # Insert submission with separate values
-            cursor.execute(
-                """
-                INSERT INTO user_history (user_id, plastic_bottles, cardboards, glasses, user_history_date, user_history_branch) 
-                VALUES (%s, %s, %s, %s, NOW(), %s)
-                """,
-                (user_id, plastic_quantity, cardboard_quantity, glass_quantity, branch),
-            )
-
-            # Update the storage
-            cursor.execute(
-                """
-                UPDATE storage
-                SET
-                    plastic = plastic + %s,
-                    cardboard = cardboard + %s,
-                    glass = glass + %s
-                """,
-                (plastic_quantity, cardboard_quantity, glass_quantity),
-            )
-
-            # Calculate points based on material type
-            plastic_points = plastic_quantity * 2  # 2 points per bottle
-            cardboard_points = cardboard_quantity * 1  # 1 point per cardboard
-            glass_points = glass_quantity * 3  # 3 points per glass
-            total_points = plastic_points + cardboard_points + glass_points
-
-            # Update user points in the database
-            cursor.execute(
-                "UPDATE user SET user_points = user_points + %s WHERE user_id = %s",
-                (total_points, user_id),
-            )
-
-            # Update session with new points total
-            session["points"] = session.get("points", 0) + total_points
-
-            conn.commit()
-            print("Submission successful!")
-
-        except Exception as e:
-            print(f"Error: {e}")
-            print("An error occurred during submission.")
-
-        finally:
-            conn.close()
-
-        return redirect(url_for("user_dashboard"))
-
-    return render_template("user_dashboard.html")
-
-
-@app.route("/user_dashboard")
+@app.route("/user_dashboard", methods=["POST", "GET"])
 @login_required
 def user_dashboard():
-    username = session.get("username")
-    user_id = session.get("id")
-    points = session.get("points")
+    name = session.get("name")
+    location = session.get("location")
+    email = session.get("email")
     date = session.get("date")
 
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-
-        # Get user location
-        cursor.execute("SELECT user_location FROM user WHERE user_id = %s", (user_id,))
-        user_data = cursor.fetchone()
-        location = user_data.get("user_location", "") if user_data else ""
-
-        # Fetch submission history with separate columns
-        cursor.execute(
-            """
-            SELECT user_history_date, plastic_bottles, cardboards, glasses, user_history_branch 
-            FROM user_history 
-            WHERE user_id = %s 
-            ORDER BY user_history_date DESC
-            """,
-            (user_id,),
+    if session.get("loggedin"):
+        return render_template(
+            "user_dashboard.html", name=name, location=location, email=email, date=date
         )
-        submissions = cursor.fetchall()
 
-        cursor.execute(
-            """
-                SELECT 
-                    SUM(plastic_bottles), 
-                    SUM(cardboards), 
-                    SUM(glasses) 
-                FROM user_history
-                WHERE user_id = %s
-            """,
-            (user_id,),
-        )
-        summary = cursor.fetchone()
-
-        # Assign values to variables
-        total_plastic, total_cardboards, total_glasses = summary.values()
-
-    except Exception as e:
-        print(f"Error: {e}")
-        submissions = []
-        location = ""
-
-    finally:
-        conn.close()
-
-    date_obj = datetime.strptime(date, "%a, %d %b %Y %H:%M:%S GMT")
-    formatted_date = date_obj.strftime("%B %d, %Y")
-
-    return render_template(
-        "user_dashboard.html",
-        username=username,
-        email=session.get("email"),
-        date=formatted_date,
-        points=points,
-        location=location,
-        submissions=submissions,
-        total_plastic=total_plastic,
-        total_cardboards=total_cardboards,
-        total_glasses=total_glasses,
-    )
-
+    else:
+        return redirect(url_for("user_login"))
 
 
 @app.route("/company_signup", methods=["POST", "GET"])
@@ -319,26 +196,123 @@ def company_login():
     return render_template("company_login.html")
 
 
-@app.route("/company_dashboard", methods=["POST", "GET"])
+@app.route("/company_dashboard")
 @login_required
 def company_dashboard():
-    company_name = session.get("company_name")
-    company_email = session.get("company_email")
-    company_location = session.get("company_location")
-    company_date = session.get("company_date")
+    company_name = session.get("company_name", "Company")
+    company_id = session.get("company_id", "ID")
 
-    if session.get("loggedin"):
-        return render_template(
-            "company_dashboard.html",
-            company_name=company_name,
-            company_email=company_email,
-            company_location=company_location,
-            company_date=company_date,
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Fetch stock data from storage
+        cursor.execute("SELECT plastic, cardboard, glass FROM storage LIMIT 1")
+        stock_data = cursor.fetchone()
+        stock = {
+            "Plastic": stock_data[0],
+            "Cardboard": stock_data[1],
+            "Glass": stock_data[2],
+        }
+
+        # Fetch company history with separate columns for materials
+        cursor.execute(
+            """
+            SELECT company_history_date, plastic_bottles, cardboards, glasses
+            FROM company_history
+            WHERE company_id = %s
+            ORDER BY company_history_date DESC
+            """,
+            (company_id,),
         )
-    else:
-        return redirect(url_for("company_login"))
+        history_data = cursor.fetchall()
+        history_data = [
+            {
+                "company_history_date": row[0],
+                "plastic_bottles": row[1],
+                "cardboards": row[2],
+                "glasses": row[3],
+            }
+            for row in history_data
+        ]
 
+        cursor.execute(
+            """
+                SELECT 
+                    SUM(plastic_bottles), 
+                    SUM(cardboards), 
+                    SUM(glasses) 
+                FROM company_history
+                WHERE company_id = %s
+            """,
+            (company_id,),
+        )
+        summary = cursor.fetchone()
+        total_plastic, total_cardboards, total_glasses = summary
 
+    except Exception as e:
+        print(f"Error: {e}")
+        stock = {"Plastic": 0, "Cardboard": 0, "Glass": 0}
+        history_data = []
+    finally:
+        conn.close()
+
+    return render_template(
+        "company_dashboard.html",
+        company_name=company_name,
+        company_location = session["company_location"],
+        stock_data=stock,
+        history_data=history_data,
+        total_plastic=total_plastic,
+        total_cardboards=total_cardboards,
+        total_glasses=total_glasses,
+    )
+
+@app.route("/company_submit", methods=["POST"])
+@login_required
+def company_submit():
+    if request.method == "POST":
+        plastic_quantity = request.form.get("plasticBottles", 0, type=int)
+        cardboard_quantity = request.form.get("cardboard", 0, type=int)
+        glass_quantity = request.form.get("glass", 0, type=int)
+        company_id = session.get("company_id")
+
+        if not company_id:
+            return redirect(url_for("company_login"))
+
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                INSERT INTO company_history 
+                (company_id, plastic_bottles, cardboards, glasses) 
+                VALUES (%s, %s, %s, %s)
+                """,
+                (company_id, plastic_quantity, cardboard_quantity, glass_quantity),
+            )
+
+            cursor.execute(
+                """
+                UPDATE storage
+                SET
+                    plastic = plastic - %s,
+                    cardboard = cardboard - %s,
+                    glass = glass - %s
+                """,
+                (plastic_quantity, cardboard_quantity, glass_quantity),
+            )
+            conn.commit()
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        finally:
+            conn.close()
+
+        return redirect(url_for("company_dashboard"))
+
+    return render_template("company_dashboard.html")
 @app.route("/find_bins")
 def find_bins():
     return render_template("find_bin.html")
