@@ -90,7 +90,36 @@
           </table>
         </div>
       </section>
+     
 
+      <section class="stock">
+        <h2>Available Stock</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plastic</td>
+              <td>{{ stock_data['Plastic'] }}</td>
+            </tr>
+            <tr>
+              <td>Cardboard</td>
+              <td>{{ stock_data['Cardboard'] }}</td>
+            </tr>
+            <tr>
+              <td>Glass</td>
+              <td>{{ stock_data['Glass'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Order Button -->
+        <button class="order-button" onclick="openOrderForm()">Order Materials</button>
+      </section>
 
     </div>
 
