@@ -134,3 +134,285 @@ h2 {
 .company-profile .edit-button:hover {
   box-shadow: 2px 2px #00000090;
 }
+
+.history_table {
+  overflow: auto;
+  max-height: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.history,
+.stock {
+  width: 80%;
+  background: #595959;
+  padding: 40px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(15px);
+  color: #fff;
+}
+
+.history {
+  background-color: #EE8434
+}
+
+.history table,
+.stock table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.history th,
+.stock th,
+.history td,
+.stock td {
+  padding: 15px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.history td,
+.stock td {
+  color: #ffffff;
+}
+
+button.order-button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  margin-top: 40px;
+  font-size: 16px;
+  color: #141619;
+  background: #F8F7FF;
+  border: 1px solid transparent;
+  transition: 0.5s ease-in-out;
+}
+
+button.order-button:hover {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.order-form-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.order-form-content {
+  background: #36454F;
+  padding: 30px;
+  border-radius: 15px;
+  color: #fff;
+  width: 80%;
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.order-form-content h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.order-form-content form {
+  width: 100%;
+}
+
+.order-form-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: whitesmoke;
+}
+
+.order-form-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.order-form-content input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.order-form-content button {
+  background: #fff;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.order-form-content button:hover {
+  background: #ccc;
+}
+
+.order-form-content table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.order-form-content th,
+.order-form-content td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.order-form-content th {
+  font-weight: 700;
+  color: whitesmoke;
+}
+
+.order-form-content td {
+  color: #ddd;
+}
+
+.order-form-content .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.order-form-content .close-btn:hover {
+  color: #ccc;
+}
+
+
+
+.success-message {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  color: #333;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 500px;
+  z-index: 1000;
+  text-align: center;
+  display: none;
+}
+
+.success-message p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.success-message button {
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.success-message button:hover {
+  background: #555;
+}
+
+.summary {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  width: 80%;
+  margin-bottom: 40px;
+}
+
+.summary h2 {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.summary th,
+.summary td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+}
+
+.summary th {
+  font-weight: bold;
+  color: whitesmoke;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.summary td {
+  color: #ddd;
+}
+
+.summary tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+  
+}

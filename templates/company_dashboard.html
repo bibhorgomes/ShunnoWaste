@@ -33,11 +33,126 @@
         </div>
       </section>
 
+      <section class="summary">
+        <h2>Recycling Summary</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plastic Bottles</td>
+              <td>{{ total_plastic }}</td>
+            </tr>
+            <tr>
+              <td>Cardboards</td>
+              <td>{{ total_cardboards }}</td>
+            </tr>
+            <tr>
+              <td>Glass Bottles</td>
+              <td>{{ total_glasses }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="history">
+        <h2>Accessed Recycle Bins</h2>
+
+        <div class="history_table">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Plastic Bottles</th>
+                <th>Cardboards</th>
+                <th>Glass</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for history in history_data %}
+              <tr>
+                <td>{{ history.company_history_date }}</td>
+                <td>{{ history.plastic_bottles or 0 }} kg</td>
+                <td>{{ history.cardboards or 0 }} kg</td>
+                <td>{{ history.glasses or 0 }} kg</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="4">No history available.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+      </section>
+     
+
+      <section class="stock">
+        <h2>Available Stock</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plastic</td>
+              <td>{{ stock_data['Plastic'] }}</td>
+            </tr>
+            <tr>
+              <td>Cardboard</td>
+              <td>{{ stock_data['Cardboard'] }}</td>
+            </tr>
+            <tr>
+              <td>Glass</td>
+              <td>{{ stock_data['Glass'] }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Order Button -->
+        <button class="order-button" onclick="openOrderForm()">Order Materials</button>
+      </section>
+
     </div>
+    
+       <!-- Pop-Up Modal for Order Form -->
+    <div id="orderFormModal" class="order-form-modal">
+      <div class="order-form-content">
+        <span class="close-btn" onclick="closeOrderForm()">&times;</span>
+        <h3>Order Materials</h3>
+        <form id="orderForm" method="POST" action="/company_submit">
+         
+          <label for="plasticBottles">Plastic Bottles:</label>
+          <input type="number" id="plasticBottles" name="plasticBottles" placeholder="Enter quantity in kg">
+
+          <label for="cardboard">Cardboard:</label>
+          <input type="number" id="cardboard" name="cardboard" placeholder="Enter quantity in kg">
+
+          <label for="glass">Glass:</label>
+          <input type="number" id="glass" name="glass" placeholder="Enter quantity in kg">
+
+          <button type="submit">Submit Order</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="successMessage" class="success-message" style="display: none;">
+      <p>Order submitted successfully!</p>
+      <button onclick="closeSuccessMessage()">Close</button>
+    </div>
+   
 
   </div>
 
-  <script src="static/js/company_dashboard_script.js"></script>
+  <script src="{{ url_for('static', filename='js/company_dashboard_script.js') }}"></script>
 </body>
 
 </html>
