@@ -196,24 +196,77 @@ def company_login():
     return render_template("company_login.html")
 
 
-@app.route("/company_dashboard", methods=["POST", "GET"])
+@app.route("/company_dashboard")
 @login_required
 def company_dashboard():
-    company_name = session.get("company_name")
-    company_email = session.get("company_email")
-    company_location = session.get("company_location")
-    company_date = session.get("company_date")
+    company_name = session.get("company_name", "Company")
+    company_id = session.get("company_id", "ID")
 
-    if session.get("loggedin"):
-        return render_template(
-            "company_dashboard.html",
-            company_name=company_name,
-            company_email=company_email,
-            company_location=company_location,
-            company_date=company_date,
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Fetch stock data from storage
+        cursor.execute("SELECT plastic, cardboard, glass FROM storage LIMIT 1")
+        stock_data = cursor.fetchone()
+        stock = {
+            "Plastic": stock_data[0],
+            "Cardboard": stock_data[1],
+            "Glass": stock_data[2],
+        }
+
+        # Fetch company history with separate columns for materials
+        cursor.execute(
+            """
+            SELECT company_history_date, plastic_bottles, cardboards, glasses
+            FROM company_history
+            WHERE company_id = %s
+            ORDER BY company_history_date DESC
+            """,
+            (company_id,),
         )
-    else:
-        return redirect(url_for("company_login"))
+        history_data = cursor.fetchall()
+        history_data = [
+            {
+                "company_history_date": row[0],
+                "plastic_bottles": row[1],
+                "cardboards": row[2],
+                "glasses": row[3],
+            }
+            for row in history_data
+        ]
+
+        cursor.execute(
+            """
+                SELECT 
+                    SUM(plastic_bottles), 
+                    SUM(cardboards), 
+                    SUM(glasses) 
+                FROM company_history
+                WHERE company_id = %s
+            """,
+            (company_id,),
+        )
+        summary = cursor.fetchone()
+        total_plastic, total_cardboards, total_glasses = summary
+
+    except Exception as e:
+        print(f"Error: {e}")
+        stock = {"Plastic": 0, "Cardboard": 0, "Glass": 0}
+        history_data = []
+    finally:
+        conn.close()
+
+    return render_template(
+        "company_dashboard.html",
+        company_name=company_name,
+        company_location = session["company_location"],
+        stock_data=stock,
+        history_data=history_data,
+        total_plastic=total_plastic,
+        total_cardboards=total_cardboards,
+        total_glasses=total_glasses,
+    )
 
 @app.route("/company_submit", methods=["POST"])
 @login_required
