@@ -33,6 +33,65 @@
         </div>
       </section>
 
+      <section class="summary">
+        <h2>Recycling Summary</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plastic Bottles</td>
+              <td>{{ total_plastic }}</td>
+            </tr>
+            <tr>
+              <td>Cardboards</td>
+              <td>{{ total_cardboards }}</td>
+            </tr>
+            <tr>
+              <td>Glass Bottles</td>
+              <td>{{ total_glasses }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="history">
+        <h2>Accessed Recycle Bins</h2>
+
+        <div class="history_table">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Plastic Bottles</th>
+                <th>Cardboards</th>
+                <th>Glass</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for history in history_data %}
+              <tr>
+                <td>{{ history.company_history_date }}</td>
+                <td>{{ history.plastic_bottles or 0 }} kg</td>
+                <td>{{ history.cardboards or 0 }} kg</td>
+                <td>{{ history.glasses or 0 }} kg</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="4">No history available.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+      </section>
+
+
     </div>
 
   </div>
