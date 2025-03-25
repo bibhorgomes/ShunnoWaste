@@ -64,7 +64,7 @@ def user_login():
                 print("Login successful!")
                 return redirect(url_for("user_dashboard"))
             else:
-                print("Incorrect username/password!")
+                print("Incorrect name/password!")
 
         except Exception as e:
             print(f"Error: {e}")
@@ -182,7 +182,7 @@ def user_submit():
 @app.route("/user_dashboard")
 @login_required
 def user_dashboard():
-    username = session.get("username")
+    name = session.get("name")
     user_id = session.get("id")
     points = session.get("points")
     date = session.get("date")
@@ -237,7 +237,7 @@ def user_dashboard():
 
     return render_template(
         "user_dashboard.html",
-        username=username,
+        name=name,
         email=session.get("email"),
         date=formatted_date,
         points=points,
@@ -247,6 +247,7 @@ def user_dashboard():
         total_cardboards=total_cardboards,
         total_glasses=total_glasses,
     )
+
 
 @app.route("/company_signup", methods=["POST", "GET"])
 def company_signup():
@@ -382,13 +383,14 @@ def company_dashboard():
     return render_template(
         "company_dashboard.html",
         company_name=company_name,
-        company_location = session["company_location"],
+        company_location=session["company_location"],
         stock_data=stock,
         history_data=history_data,
         total_plastic=total_plastic,
         total_cardboards=total_cardboards,
         total_glasses=total_glasses,
     )
+
 
 @app.route("/company_submit", methods=["POST"])
 @login_required
@@ -435,6 +437,8 @@ def company_submit():
         return redirect(url_for("company_dashboard"))
 
     return render_template("company_dashboard.html")
+
+
 @app.route("/find_bins")
 def find_bins():
     return render_template("find_bin.html")
